@@ -3,6 +3,6 @@ main: edu.cmu.minecraft.betrayal.BetrayalPlugin
 version: 0.0.1
 load: STARTUP
 commands:
-  test:
+  enter:
     description: Enters the user into the Betrayal world
     usage: /enter
