@@ -86,7 +86,7 @@ public class StartHousePopulator extends BlockPopulator {
 	
 	private void generateDoor(World world, int x, int y, int z, BlockFace facing, boolean hingeRight, boolean open) {
 		Block doorBlockBot = world.getBlockAt(x, y, z);
-		Block doorBlockTop = world.getBlockAt(x, y, z);
+		Block doorBlockTop = world.getBlockAt(x, y + 1, z);
 		Door doorBot = new Door(TreeSpecies.DARK_OAK, facing, open);
 		Door doorTop = new Door(TreeSpecies.DARK_OAK, hingeRight);
 		BlockState state;
