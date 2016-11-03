@@ -18,6 +18,7 @@ import edu.cmu.minecraft.betrayal.worldgen.FlatLandGenerator;
 public class EnterWorldCommand implements CommandExecutor {
 	private Plugin plugin;
 	private Logger logger;
+	public static final String COMMAND_NAME = "enter";
 	
 	public EnterWorldCommand(Plugin plugin) {
 		super();

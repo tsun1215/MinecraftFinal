@@ -11,7 +11,7 @@ public class BetrayalPlugin extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-		this.getCommand("test").setExecutor(new EnterWorldCommand(this));
+		this.getCommand(EnterWorldCommand.COMMAND_NAME).setExecutor(new EnterWorldCommand(this));
 	}
 	@Override
 	public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
