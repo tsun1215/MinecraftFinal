@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import org.bukkit.block.Block;
 
 public class Blueprint implements Materializable {
-	
+
 	private ArrayList<Entrance> doors;
 	private ArrayList<Wall> walls;
-	
+
 	public Blueprint() {
 		doors = new ArrayList<Entrance>();
 		walls = new ArrayList<Wall>();
 	}
-	
+
 	public ArrayList<Entrance> getDoors() {
 		return doors;
 	}
@@ -21,7 +21,7 @@ public class Blueprint implements Materializable {
 	public void addDoor(Entrance d) {
 		doors.add(d);
 	}
-	
+
 	public ArrayList<Wall> getWalls() {
 		return walls;
 	}
@@ -38,7 +38,7 @@ public class Blueprint implements Materializable {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public void materialize() {
 		for (Wall wall : walls) {

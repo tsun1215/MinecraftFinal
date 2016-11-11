@@ -16,12 +16,12 @@ import edu.cmu.minecraft.betrayal.worldgen.RoomManager;
 public class DoorListener implements Listener {
 	private Plugin plugin;
 	private Logger logger;
-	
+
 	public DoorListener(Plugin plugin) {
 		this.plugin = plugin;
 		this.logger = this.plugin.getLogger();
 	}
-	
+
 	@EventHandler
 	public void onPlayerDoorOpen(PlayerInteractEvent event) {
 		Action action = event.getAction();
@@ -29,17 +29,19 @@ public class DoorListener implements Listener {
 		if (block != null) {
 			logger.info("Block: " + block);
 			logger.info("Chunk: " + block.getChunk());
-			Blueprint b = RoomManager.getInstance().getBlueprint(block.getChunk());
+			Blueprint b = RoomManager.getInstance()
+					.getBlueprint(block.getChunk());
 			if (b != null) {
 				if (action == Action.RIGHT_CLICK_BLOCK) {
 					Entrance door = b.getDoorByBlock(block);
 					if (door != null) {
-						door.open(); //Generate room here?
+						door.open(); // Generate room here?
 						this.logger.info("Clicked on door");
 					}
-				}				
+				}
 			} else {
-				this.logger.info("Unable to find chunk at: " + block.getChunk());
+				this.logger
+						.info("Unable to find chunk at: " + block.getChunk());
 			}
 		}
 	}

@@ -8,14 +8,18 @@ import edu.cmu.minecraft.betrayal.worldgen.FlatLandGenerator;
 
 public class BetrayalPlugin extends JavaPlugin {
 	public static final String WORLD_NAME = "BetrayalWorld";
-	
+
 	@Override
 	public void onEnable() {
-		this.getServer().getPluginManager().registerEvents(new DoorListener(this), this);
-		this.getCommand(EnterWorldCommand.COMMAND_NAME).setExecutor(new EnterWorldCommand(this));
+		this.getServer().getPluginManager()
+				.registerEvents(new DoorListener(this), this);
+		this.getCommand(EnterWorldCommand.COMMAND_NAME)
+				.setExecutor(new EnterWorldCommand(this));
 	}
+
 	@Override
-	public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
+	public ChunkGenerator getDefaultWorldGenerator(String worldName,
+			String id) {
 		return new FlatLandGenerator(this);
 	}
 }
