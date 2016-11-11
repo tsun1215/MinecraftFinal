@@ -35,6 +35,7 @@ public class BetrayalPlugin extends JavaPlugin {
 			Entrance door = b.getDoorByBlock(block);
 			if (door != null) {
 				door.open(); //Generate room here?
+				this.getLogger().info("Clicked on door");
 			}
 		}
 	}

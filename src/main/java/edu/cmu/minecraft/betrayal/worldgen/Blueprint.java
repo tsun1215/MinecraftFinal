@@ -41,11 +41,11 @@ public class Blueprint implements Materializable {
 	
 	@Override
 	public void materialize() {
-		for (Entrance door : doors) {
-			door.materialize();
-		}
 		for (Wall wall : walls) {
 			wall.materialize();
+		}
+		for (Entrance door : doors) {
+			door.materialize();
 		}
 	}
 

@@ -41,7 +41,7 @@ public class EnterWorldCommand implements CommandExecutor {
 			
 			// Teleport current player to location
 			logger.info("Teleporting " + player.getName() + " to " + BetrayalPlugin.WORLD_NAME);
-			player.teleport(new Location(w, 0, 15, 100));
+			player.teleport(new Location(w, 7, 13, 7));
 			player.sendMessage("Welcome to " + ChatColor.RED + BetrayalPlugin.WORLD_NAME + ChatColor.RESET + "!");
 		} else {
 			// TODO: Allow an admin command to send a given player to the world
