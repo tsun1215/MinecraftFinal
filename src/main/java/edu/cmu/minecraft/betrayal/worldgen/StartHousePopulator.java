@@ -40,20 +40,20 @@ public class StartHousePopulator extends BlockPopulator {
 		}
 		
 		Blueprint bp = new Blueprint();
-		// South Wall
-		bp.addWall(new Wall(world, Material.BRICK, cX, highest, cZ, cX + CHUNK_WIDTH, highest + CEILING_HEIGHT, cZ));
 		// North Wall
-		bp.addWall(new Wall(world, Material.BRICK, cX, highest, cZ + CHUNK_HEIGHT, cX + CHUNK_WIDTH, highest + CEILING_HEIGHT, cZ + CHUNK_HEIGHT));
+		bp.addWall(new Wall(world, Material.BRICK, cX, highest, cZ, cX + CHUNK_WIDTH - 1, highest + CEILING_HEIGHT, cZ));
+		// South Wall
+		bp.addWall(new Wall(world, Material.BRICK, cX, highest, cZ + CHUNK_HEIGHT - 1, cX + CHUNK_WIDTH - 1, highest + CEILING_HEIGHT, cZ + CHUNK_HEIGHT - 1));
 		// West Wall
-		bp.addWall(new Wall(world, Material.BRICK, cX, highest, cZ, cX, highest + CEILING_HEIGHT, cZ + CHUNK_HEIGHT));
+		bp.addWall(new Wall(world, Material.BRICK, cX, highest, cZ, cX, highest + CEILING_HEIGHT, cZ + CHUNK_HEIGHT - 1));
 		// East Wall
-		bp.addWall(new Wall(world, Material.BRICK, cX + CHUNK_WIDTH, highest, cZ, cX + CHUNK_WIDTH, highest + CEILING_HEIGHT, cZ + CHUNK_HEIGHT));
+		bp.addWall(new Wall(world, Material.BRICK, cX + CHUNK_WIDTH - 1, highest, cZ, cX + CHUNK_WIDTH - 1, highest + CEILING_HEIGHT, cZ + CHUNK_HEIGHT - 1));
 		
 		// South Door
-		bp.addDoor(new Entrance(plugin, world, Material.DARK_OAK_DOOR, BlockFace.SOUTH, true, cX + 7, highest, cZ));
-		bp.addDoor(new Entrance(plugin, world, Material.DARK_OAK_DOOR, BlockFace.WEST, true, cX, highest, cZ + 7));
-		bp.addDoor(new Entrance(plugin, world, Material.DARK_OAK_DOOR, BlockFace.EAST, true, cX + CHUNK_WIDTH, highest, cZ + 7));
-		bp.addDoor(new Entrance(plugin, world, Material.DARK_OAK_DOOR, BlockFace.NORTH, true, cX + 7, highest, cZ + CHUNK_HEIGHT));
+		bp.addDoor(new Entrance(plugin, world, Material.DARK_OAK_DOOR, BlockFace.NORTH, true, cX + 7, highest, cZ));
+		bp.addDoor(new Entrance(plugin, world, Material.DARK_OAK_DOOR, BlockFace.EAST, true, cX, highest, cZ + 7));
+		bp.addDoor(new Entrance(plugin, world, Material.DARK_OAK_DOOR, BlockFace.WEST, true, cX + CHUNK_WIDTH - 1, highest, cZ + 7));
+		bp.addDoor(new Entrance(plugin, world, Material.DARK_OAK_DOOR, BlockFace.SOUTH, true, cX + 7, highest, cZ + CHUNK_HEIGHT - 1));
 		
 		RoomManager.getInstance().addBlueprint(chunk, bp);
 		bp.materialize();
