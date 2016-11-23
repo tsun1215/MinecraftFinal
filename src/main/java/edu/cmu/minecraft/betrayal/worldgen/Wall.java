@@ -4,28 +4,28 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.material.Directional;
 
-public class Wall implements Materializable {
+public class Wall implements Materializable, Directional {
 
-	final private World world;
 	// Corners describe walls inclusively (corners lie within the wall)
-	final private Block lowCorner;
-	final private Block highCorner; // Corner diagonally opposite lowCorner
+	final private Location lowCorner;
+	final private Location highCorner; // Corner diagonally opposite lowCorner
 	final private Material material;
+	private BlockFace facing;
 
-	public Wall(World w, Material m, int lowX, int lowY, int lowZ, int highX,
-			int highY, int highZ) {
-		world = w;
-		material = m;
-		lowCorner = world.getBlockAt(lowX, lowY, lowZ);
-		highCorner = world.getBlockAt(highX, highY, highZ);
+	public Wall(Material m, Location low, Location high, BlockFace facing) {
+		this.material = m;
+		this.lowCorner = low;
+		this.highCorner = high;
 	}
 
-	public Block getLowCorner() {
+	public Location getLowCorner() {
 		return lowCorner;
 	}
 
-	public Block getHighCorner() {
+	public Location getHighCorner() {
 		return highCorner;
 	}
 
@@ -35,9 +35,9 @@ public class Wall implements Materializable {
 
 	@Override
 	public void materialize(World w) {
-		for (int x = lowCorner.getX(); x <= highCorner.getX(); x++) {
-			for (int y = lowCorner.getY(); y <= highCorner.getY(); y++) {
-				for (int z = lowCorner.getZ(); z <= highCorner.getZ(); z++) {
+		for (int x = lowCorner.getBlockX(); x <= highCorner.getBlockX(); x++) {
+			for (int y = lowCorner.getBlockY(); y <= highCorner.getBlockY(); y++) {
+				for (int z = lowCorner.getBlockZ(); z <= highCorner.getBlockZ(); z++) {
 					w.getBlockAt(x, y, z).setType(this.material);
 				}
 			}
@@ -46,9 +46,19 @@ public class Wall implements Materializable {
 
 	@Override
 	public boolean contains(Location l) {
-		return lowCorner.getX() < l.getBlockX() && l.getBlockX() < highCorner.getX()
-				&& lowCorner.getY() < l.getBlockY() && l.getBlockY() < highCorner.getY()
-				&& lowCorner.getZ() < l.getBlockZ() && l.getBlockZ() < highCorner.getZ();
+		return lowCorner.getBlockX() < l.getBlockX() && l.getBlockX() < highCorner.getBlockX()
+				&& lowCorner.getBlockY() < l.getBlockY() && l.getBlockY() < highCorner.getBlockY()
+				&& lowCorner.getBlockZ() < l.getBlockZ() && l.getBlockZ() < highCorner.getBlockZ();
+	}
+
+	@Override
+	public void setFacingDirection(BlockFace face) {
+		this.facing = face;
+	}
+
+	@Override
+	public BlockFace getFacing() {
+		return this.facing;
 	}
 
 }

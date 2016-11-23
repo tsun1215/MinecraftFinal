@@ -8,16 +8,17 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
+import org.bukkit.material.Directional;
 import org.bukkit.material.Door;
 import org.bukkit.plugin.Plugin;
 
-public class Entrance implements Materializable {
+public class Entrance implements Materializable, Directional {
 
 	final private World world;
 	// Describes location of bottom left door block
 	final private Block loc;
 	final private Material material;
-	final private BlockFace facing;
+	private BlockFace facing;
 	final private boolean doubleDoor;
 	final private Logger logger;
 	private boolean opened;
@@ -142,6 +143,16 @@ public class Entrance implements Materializable {
 	public boolean contains(Location l) {
 		// TODO: Change to be a straight line in front of the door
 		return l.equals(this.loc.getLocation());
+	}
+
+	@Override
+	public void setFacingDirection(BlockFace face) {
+		this.facing = face;
+	}
+
+	@Override
+	public BlockFace getFacing() {
+		return this.facing;
 	}
 
 }
