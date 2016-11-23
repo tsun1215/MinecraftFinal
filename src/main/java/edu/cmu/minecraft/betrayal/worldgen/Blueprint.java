@@ -10,14 +10,18 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 
+import edu.cmu.minecraft.betrayal.worldgen.furniture.Furniture;
+
 public class Blueprint implements Materializable {
 
 	private ArrayList<Entrance> doors;
 	private Map<BlockFace, List<Wall>> wallsByDir;
+	private ArrayList<Furniture> furnitures;
 
 	public Blueprint() {
 		doors = new ArrayList<Entrance>();
-		wallsByDir = new HashMap<>();
+		wallsByDir = new HashMap<BlockFace, List<Wall>>();
+		furnitures = new ArrayList<Furniture>();
 	}
 
 	public ArrayList<Entrance> getDoors() {
@@ -29,7 +33,7 @@ public class Blueprint implements Materializable {
 	}
 
 	public void addWall(Wall w) {
-		wallsByDir.putIfAbsent(w.getFacing().getOppositeFace(), new ArrayList<>()).add(w);
+		wallsByDir.putIfAbsent(w.getFacing().getOppositeFace(), new ArrayList<Wall>()).add(w);
 	}
 	
 	/**
@@ -77,6 +81,10 @@ public class Blueprint implements Materializable {
 		return null;
 	}
 	
+	public void addFurniture(Furniture f) {
+		furnitures.add(f);
+	}
+	
 	@Override
 	public void materialize(World world) {
 		for (List<Wall> walls : wallsByDir.values()) {
@@ -86,6 +94,10 @@ public class Blueprint implements Materializable {
 		}
 		for (Entrance door : doors) {
 			door.materialize(world);
+		}
+		
+		for (Furniture furniture : furnitures) {
+			furniture.materialize(world);
 		}
 	}
 

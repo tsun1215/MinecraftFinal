@@ -10,6 +10,8 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.plugin.Plugin;
 
+import edu.cmu.minecraft.betrayal.worldgen.furniture.Table;
+
 public class StartHousePopulator extends BlockPopulator {
 	public static final int CHUNK_WIDTH = 16;
 	public static final int CHUNK_HEIGHT = 16;
@@ -70,6 +72,8 @@ public class StartHousePopulator extends BlockPopulator {
 		bp.addDoor(new Entrance(plugin, new Location(world, cX + 7, highest, cZ + CHUNK_HEIGHT - 1),
 				Material.DARK_OAK_DOOR, BlockFace.SOUTH, true));
 
+		bp.addFurniture(new Table(cX+1, highest+1, cZ+1, 3, 3));
+		
 		RoomManager.getInstance().addBlueprint(chunk, bp);
 		bp.materialize(world);
 	}
