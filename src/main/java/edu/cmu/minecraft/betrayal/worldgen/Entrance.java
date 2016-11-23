@@ -14,27 +14,25 @@ import org.bukkit.plugin.Plugin;
 
 public class Entrance implements Materializable, Directional {
 
-	final private World world;
 	// Describes location of bottom left door block
-	final private Block loc;
+	final private Location loc;
 	final private Material material;
 	private BlockFace facing;
-	final private boolean doubleDoor;
+	final private boolean isDoubleDoor;
 	final private Logger logger;
 	private boolean opened;
 
-	public Entrance(Plugin p, World w, Material m, BlockFace f,
-			boolean doubleDoor, int x, int y, int z) {
+	public Entrance(Plugin p, Location loc, Material m, BlockFace facing,
+			boolean isDoubleDoor) {
 		this.logger = p.getLogger();
-		world = w;
-		loc = world.getBlockAt(x, y, z);
-		material = m;
-		this.doubleDoor = doubleDoor;
+		this.loc = loc;
+		this.material = m;
+		this.isDoubleDoor = isDoubleDoor;
 		this.opened = false;
-		this.facing = f;
+		this.facing = facing;
 	}
 
-	public Block getLoc() {
+	public Location getLoc() {
 		return loc;
 	}
 
@@ -51,20 +49,20 @@ public class Entrance implements Materializable, Directional {
 	}
 
 	public boolean isDoubleDoor() {
-		return doubleDoor;
+		return isDoubleDoor;
 	}
 
 	public boolean includesBlock(Block b) {
 		if (b.equals(loc)) {
 			return true;
 		}
-		if (b.equals(loc.getRelative(BlockFace.UP))) {
+		if (b.equals(loc.getBlock().getRelative(BlockFace.UP))) {
 			return true;
 		}
-		if (doubleDoor) {
+		if (isDoubleDoor) {
 			Block rightDoor;
 			try {
-				rightDoor = loc.getRelative(computeRightDoorDirection(facing));
+				rightDoor = loc.getBlock().getRelative(computeRightDoorDirection(facing));
 				if (b.equals(rightDoor)) {
 					return true;
 				}
@@ -81,11 +79,11 @@ public class Entrance implements Materializable, Directional {
 	@Override
 	public void materialize(World w) {
 		Block rightDoor;
-		generateDoor(this.world, loc.getX(), loc.getY(), loc.getZ(), facing, false);
-		if (doubleDoor) {
+		generateDoor(w, loc.getBlockX(), loc.getBlockY(), loc.getBlockZ(), facing, false);
+		if (isDoubleDoor) {
 			try {
-				rightDoor = loc.getRelative(computeRightDoorDirection(facing));
-				generateDoor(this.world, rightDoor.getX(), rightDoor.getY(),
+				rightDoor = loc.getBlock().getRelative(computeRightDoorDirection(facing));
+				generateDoor(w, rightDoor.getX(), rightDoor.getY(),
 						rightDoor.getZ(), facing, true);
 			} catch (InvalidDoorException e) {
 				logger.warning("Invalid door facing direction: " + facing);
@@ -142,7 +140,7 @@ public class Entrance implements Materializable, Directional {
 	@Override
 	public boolean contains(Location l) {
 		// TODO: Change to be a straight line in front of the door
-		return l.equals(this.loc.getLocation());
+		return l.equals(this.loc);
 	}
 
 	@Override
