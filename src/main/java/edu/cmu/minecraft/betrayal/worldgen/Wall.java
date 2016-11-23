@@ -1,5 +1,6 @@
 package edu.cmu.minecraft.betrayal.worldgen;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -33,14 +34,21 @@ public class Wall implements Materializable {
 	}
 
 	@Override
-	public void materialize() {
+	public void materialize(World w) {
 		for (int x = lowCorner.getX(); x <= highCorner.getX(); x++) {
 			for (int y = lowCorner.getY(); y <= highCorner.getY(); y++) {
 				for (int z = lowCorner.getZ(); z <= highCorner.getZ(); z++) {
-					this.world.getBlockAt(x, y, z).setType(this.material);
+					w.getBlockAt(x, y, z).setType(this.material);
 				}
 			}
 		}
+	}
+
+	@Override
+	public boolean contains(Location l) {
+		return lowCorner.getX() < l.getBlockX() && l.getBlockX() < highCorner.getX()
+				&& lowCorner.getY() < l.getBlockY() && l.getBlockY() < highCorner.getY()
+				&& lowCorner.getZ() < l.getBlockZ() && l.getBlockZ() < highCorner.getZ();
 	}
 
 }

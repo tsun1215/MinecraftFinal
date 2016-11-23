@@ -64,7 +64,7 @@ public class StartHousePopulator extends BlockPopulator {
 				BlockFace.SOUTH, true, cX + 7, highest, cZ + CHUNK_HEIGHT - 1));
 
 		RoomManager.getInstance().addBlueprint(chunk, bp);
-		bp.materialize();
+		bp.materialize(world);
 	}
 
 	@Override

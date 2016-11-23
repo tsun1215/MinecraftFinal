@@ -2,6 +2,8 @@ package edu.cmu.minecraft.betrayal.worldgen;
 
 import java.util.ArrayList;
 
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 
 public class Blueprint implements Materializable {
@@ -40,13 +42,28 @@ public class Blueprint implements Materializable {
 	}
 
 	@Override
-	public void materialize() {
+	public void materialize(World w) {
 		for (Wall wall : walls) {
-			wall.materialize();
+			wall.materialize(w);
 		}
 		for (Entrance door : doors) {
-			door.materialize();
+			door.materialize(w);
 		}
+	}
+
+	@Override
+	public boolean contains(Location l) {
+		for (Wall wall : walls) {
+			if (wall.contains(l)) {
+				return true;
+			}
+		}
+		for (Entrance e : doors) {
+			if (e.contains(l)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

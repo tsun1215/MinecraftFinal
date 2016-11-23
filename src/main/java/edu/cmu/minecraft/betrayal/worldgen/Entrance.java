@@ -2,6 +2,7 @@ package edu.cmu.minecraft.betrayal.worldgen;
 
 import java.util.logging.Logger;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -77,13 +78,13 @@ public class Entrance implements Materializable {
 	}
 
 	@Override
-	public void materialize() {
+	public void materialize(World w) {
 		Block rightDoor;
-		generateDoor(loc.getX(), loc.getY(), loc.getZ(), facing, false);
+		generateDoor(this.world, loc.getX(), loc.getY(), loc.getZ(), facing, false);
 		if (doubleDoor) {
 			try {
 				rightDoor = loc.getRelative(computeRightDoorDirection(facing));
-				generateDoor(rightDoor.getX(), rightDoor.getY(),
+				generateDoor(this.world, rightDoor.getX(), rightDoor.getY(),
 						rightDoor.getZ(), facing, true);
 			} catch (InvalidDoorException e) {
 				logger.warning("Invalid door facing direction: " + facing);
@@ -91,10 +92,10 @@ public class Entrance implements Materializable {
 		}
 	}
 
-	private void generateDoor(int x, int y, int z, BlockFace facing,
+	private void generateDoor(World w, int x, int y, int z, BlockFace facing,
 			boolean hingeRight) {
-		Block doorBlockBot = world.getBlockAt(x, y, z);
-		Block doorBlockTop = world.getBlockAt(x, y + 1, z);
+		Block doorBlockBot = w.getBlockAt(x, y, z);
+		Block doorBlockTop = w.getBlockAt(x, y + 1, z);
 		Door doorBot = new Door(material, facing, false);
 		Door doorTop = new Door(material, hingeRight);
 		BlockState state;
@@ -135,6 +136,12 @@ public class Entrance implements Materializable {
 		public InvalidDoorException(BlockFace b) {
 			super(b.toString());
 		}
+	}
+
+	@Override
+	public boolean contains(Location l) {
+		// TODO: Change to be a straight line in front of the door
+		return l.equals(this.loc.getLocation());
 	}
 
 }
