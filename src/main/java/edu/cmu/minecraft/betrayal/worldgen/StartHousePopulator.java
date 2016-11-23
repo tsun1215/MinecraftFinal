@@ -3,6 +3,7 @@ package edu.cmu.minecraft.betrayal.worldgen;
 import java.util.Random;
 
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.BlockFace;
@@ -39,32 +40,38 @@ public class StartHousePopulator extends BlockPopulator {
 		Blueprint bp = new Blueprint();
 		// TODO: Clean up this mess
 		// North Wall
-		bp.addWall(new Wall(world, Material.BRICK, cX, highest, cZ,
-				cX + CHUNK_WIDTH - 1, highest + CEILING_HEIGHT, cZ));
+		bp.addWall(new Wall(Material.BRICK, 
+				new Location(world, cX, highest, cZ),
+				new Location(world, cX + CHUNK_WIDTH - 1, highest + CEILING_HEIGHT, cZ),
+				BlockFace.SOUTH));
 		// South Wall
-		bp.addWall(new Wall(world, Material.BRICK, cX, highest,
-				cZ + CHUNK_HEIGHT - 1, cX + CHUNK_WIDTH - 1,
-				highest + CEILING_HEIGHT, cZ + CHUNK_HEIGHT - 1));
+		bp.addWall(new Wall(Material.BRICK, 
+				new Location(world, cX, highest,cZ + CHUNK_HEIGHT - 1), 
+				new Location(world, cX + CHUNK_WIDTH - 1, highest + CEILING_HEIGHT, cZ + CHUNK_HEIGHT - 1), 
+				BlockFace.NORTH));
 		// West Wall
-		bp.addWall(new Wall(world, Material.BRICK, cX, highest, cZ, cX,
-				highest + CEILING_HEIGHT, cZ + CHUNK_HEIGHT - 1));
+		bp.addWall(new Wall(Material.BRICK, 
+				new Location(world, cX, highest, cZ), 
+				new Location(world, cX, highest + CEILING_HEIGHT, cZ + CHUNK_HEIGHT - 1),
+				BlockFace.EAST));
 		// East Wall
-		bp.addWall(new Wall(world, Material.BRICK, cX + CHUNK_WIDTH - 1,
-				highest, cZ, cX + CHUNK_WIDTH - 1, highest + CEILING_HEIGHT,
-				cZ + CHUNK_HEIGHT - 1));
+		bp.addWall(new Wall(Material.BRICK, 
+				new Location(world, cX + CHUNK_WIDTH - 1, highest, cZ), 
+				new Location(world, cX + CHUNK_WIDTH - 1, highest + CEILING_HEIGHT, cZ + CHUNK_HEIGHT - 1), 
+				BlockFace.WEST));
 
 		/* Doors */
-		bp.addDoor(new Entrance(plugin, world, Material.DARK_OAK_DOOR,
-				BlockFace.NORTH, true, cX + 7, highest, cZ));
-		bp.addDoor(new Entrance(plugin, world, Material.DARK_OAK_DOOR,
-				BlockFace.EAST, true, cX, highest, cZ + 7));
-		bp.addDoor(new Entrance(plugin, world, Material.DARK_OAK_DOOR,
-				BlockFace.WEST, true, cX + CHUNK_WIDTH - 1, highest, cZ + 7));
-		bp.addDoor(new Entrance(plugin, world, Material.DARK_OAK_DOOR,
-				BlockFace.SOUTH, true, cX + 7, highest, cZ + CHUNK_HEIGHT - 1));
+		bp.addDoor(new Entrance(plugin, new Location(world, cX + 7, highest, cZ),
+				Material.DARK_OAK_DOOR, BlockFace.NORTH, true));
+		bp.addDoor(new Entrance(plugin, new Location(world, cX, highest, cZ + 7),
+				Material.DARK_OAK_DOOR, BlockFace.EAST, true));
+		bp.addDoor(new Entrance(plugin, new Location(world, cX + CHUNK_WIDTH - 1, highest, cZ + 7),
+				Material.DARK_OAK_DOOR, BlockFace.WEST, true));
+		bp.addDoor(new Entrance(plugin, new Location(world, cX + 7, highest, cZ + CHUNK_HEIGHT - 1),
+				Material.DARK_OAK_DOOR, BlockFace.SOUTH, true));
 
 		RoomManager.getInstance().addBlueprint(chunk, bp);
-		bp.materialize();
+		bp.materialize(world);
 	}
 
 	@Override
