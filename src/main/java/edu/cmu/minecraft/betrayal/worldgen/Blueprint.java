@@ -18,6 +18,10 @@ public class Blueprint implements Materializable {
 	public Blueprint() {
 		doors = new ArrayList<Entrance>();
 		wallsByDir = new HashMap<>();
+		wallsByDir.put(BlockFace.EAST, new ArrayList<Wall>());
+		wallsByDir.put(BlockFace.NORTH, new ArrayList<Wall>());
+		wallsByDir.put(BlockFace.SOUTH, new ArrayList<Wall>());
+		wallsByDir.put(BlockFace.WEST, new ArrayList<Wall>());
 	}
 
 	public ArrayList<Entrance> getDoors() {
@@ -29,7 +33,7 @@ public class Blueprint implements Materializable {
 	}
 
 	public void addWall(Wall w) {
-		wallsByDir.putIfAbsent(w.getFacing().getOppositeFace(), new ArrayList<>()).add(w);
+		wallsByDir.get(w.getFacing().getOppositeFace()).add(w);
 	}
 	
 	/**
