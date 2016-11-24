@@ -22,6 +22,11 @@ public class Blueprint implements Materializable {
 		doors = new ArrayList<Entrance>();
 		wallsByDir = new HashMap<BlockFace, List<Wall>>();
 		furnitures = new ArrayList<Furniture>();
+
+		wallsByDir.put(BlockFace.EAST, new ArrayList<Wall>());
+		wallsByDir.put(BlockFace.NORTH, new ArrayList<Wall>());
+		wallsByDir.put(BlockFace.SOUTH, new ArrayList<Wall>());
+		wallsByDir.put(BlockFace.WEST, new ArrayList<Wall>());
 	}
 
 	public ArrayList<Entrance> getDoors() {
@@ -33,12 +38,12 @@ public class Blueprint implements Materializable {
 	}
 
 	public void addWall(Wall w) {
-		wallsByDir.putIfAbsent(w.getFacing().getOppositeFace(), new ArrayList<Wall>()).add(w);
+		wallsByDir.get(w.getFacing().getOppositeFace()).add(w);
 	}
-	
+
 	/**
 	 * Gets a list of walls that face south
-	 * 
+	 *
 	 * @return List of south-facing walls
 	 */
 	public List<Wall> getNorthWalls() {
@@ -47,7 +52,7 @@ public class Blueprint implements Materializable {
 
 	/**
 	 * Gets a list of walls that face north
-	 * 
+	 *
 	 * @return List of north-facing walls
 	 */
 	public List<Wall> getSouthWalls() {
@@ -56,7 +61,7 @@ public class Blueprint implements Materializable {
 
 	/**
 	 * Gets a list of walls that face west
-	 * 
+	 *
 	 * @return List of west-facing walls
 	 */
 	public List<Wall> getEastWalls() {
@@ -65,7 +70,7 @@ public class Blueprint implements Materializable {
 
 	/**
 	 * Gets a list of walls that face east
-	 * 
+	 *
 	 * @return List of east-facing walls
 	 */
 	public List<Wall> getWestWalls() {
@@ -80,11 +85,11 @@ public class Blueprint implements Materializable {
 		}
 		return null;
 	}
-	
+
 	public void addFurniture(Furniture f) {
 		furnitures.add(f);
 	}
-	
+
 	@Override
 	public void materialize(World world) {
 		for (List<Wall> walls : wallsByDir.values()) {
@@ -95,7 +100,7 @@ public class Blueprint implements Materializable {
 		for (Entrance door : doors) {
 			door.materialize(world);
 		}
-		
+
 		for (Furniture furniture : furnitures) {
 			furniture.materialize(world);
 		}
