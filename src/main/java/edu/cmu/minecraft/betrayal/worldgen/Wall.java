@@ -18,6 +18,7 @@ public class Wall implements Materializable, Directional {
 		this.material = m;
 		this.lowCorner = low;
 		this.highCorner = high;
+		this.facing = facing;
 	}
 
 	public Location getLowCorner() {
