@@ -62,7 +62,8 @@ public class Entrance implements Materializable, Directional {
 		if (isDoubleDoor) {
 			Block rightDoor;
 			try {
-				rightDoor = loc.getBlock().getRelative(computeRightDoorDirection(facing));
+				rightDoor = loc.getBlock()
+						.getRelative(computeRightDoorDirection(facing));
 				if (b.equals(rightDoor)) {
 					return true;
 				}
@@ -79,10 +80,12 @@ public class Entrance implements Materializable, Directional {
 	@Override
 	public void materialize(World w) {
 		Block rightDoor;
-		generateDoor(w, loc.getBlockX(), loc.getBlockY(), loc.getBlockZ(), facing, false);
+		generateDoor(w, loc.getBlockX(), loc.getBlockY(), loc.getBlockZ(),
+				facing, false);
 		if (isDoubleDoor) {
 			try {
-				rightDoor = loc.getBlock().getRelative(computeRightDoorDirection(facing));
+				rightDoor = loc.getBlock()
+						.getRelative(computeRightDoorDirection(facing));
 				generateDoor(w, rightDoor.getX(), rightDoor.getY(),
 						rightDoor.getZ(), facing, true);
 			} catch (InvalidDoorException e) {
