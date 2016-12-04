@@ -1,7 +1,6 @@
 package edu.cmu.minecraft.betrayal.worldgen.furniture;
 
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -25,12 +24,13 @@ public class WallTorch implements Furniture {
 	@Override
 	public void materialize(World w) {
 		Torch t = new Torch();
+		Block block = w.getBlockAt(x, y, z);
+		BlockState state = block.getState();
 		t.setFacingDirection(facing);
-		Block b = w.getBlockAt(x, y, z);
-//		b.setType(t.getItemType());
-		BlockState state = b.getState();
+		// Turns out you need to set state's type for torches
+		state.setType(t.getItemType());
 		state.setData(t);
-		state.update();
+		state.update(true);
 	}
 
 	@Override

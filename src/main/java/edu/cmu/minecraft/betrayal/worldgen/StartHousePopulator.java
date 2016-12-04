@@ -10,7 +10,6 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.plugin.Plugin;
 
-import edu.cmu.minecraft.betrayal.worldgen.furniture.EndTable;
 import edu.cmu.minecraft.betrayal.worldgen.furniture.Sofa;
 import edu.cmu.minecraft.betrayal.worldgen.furniture.Table;
 import edu.cmu.minecraft.betrayal.worldgen.furniture.Television;
@@ -78,11 +77,11 @@ public class StartHousePopulator extends BlockPopulator {
 				Material.DARK_OAK_DOOR, BlockFace.SOUTH, true));
 
 		bp.addFurniture(new Table(cX+2, highest-1, cZ+1, 3, 3));
-		bp.addFurniture(new EndTable(cX+10, highest-1, cZ+10));
+		// bp.addFurniture(new EndTable(cX+10, highest-1, cZ+10));
 		bp.addFurniture(new Sofa(cX+6, highest-1, cZ+6, 2, BlockFace.EAST));
 		bp.addFurniture(new Sofa(cX+10, highest-1, cZ+10, 2, BlockFace.WEST));
 		bp.addFurniture(new Television(cX+12, highest-1, cZ+12, 2, 2, BlockFace.EAST));
-		//bp.addFurniture(new WallTorch(cX, highest+5, cZ+1, BlockFace.EAST));
+		bp.addFurniture(new WallTorch(cX+1, highest+5, cZ+1, BlockFace.EAST));
 		bp.addFurniture(new Trunk(cX+1, highest+1, cZ+1, BlockFace.EAST));
 		bp.addFurniture(new Trunk(cX+2, highest+1, cZ+1, BlockFace.EAST));
 		RoomManager.getInstance().addBlueprint(chunk, bp);
