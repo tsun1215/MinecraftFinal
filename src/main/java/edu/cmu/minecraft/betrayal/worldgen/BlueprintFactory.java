@@ -24,6 +24,7 @@ public class BlueprintFactory {
 	public Blueprint getBlueprint(Chunk chunk, Entrance enteredDoor) {
 		Blueprint bp = new Blueprint();
 		wallPopulator.populate(bp, chunk);
+		TorchPopulator.getInstance(plugin).populate(bp);
 		return bp;
 	}
 }

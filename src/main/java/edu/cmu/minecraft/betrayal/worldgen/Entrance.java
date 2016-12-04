@@ -21,6 +21,7 @@ public class Entrance implements Materializable, Directional {
 	final private boolean isDoubleDoor;
 	final private Logger logger;
 	private boolean opened;
+	private BlockFace rightDoorDirection;
 
 	public Entrance(Plugin p, Location loc, Material m, BlockFace facing,
 			boolean isDoubleDoor) {
@@ -30,6 +31,11 @@ public class Entrance implements Materializable, Directional {
 		this.isDoubleDoor = isDoubleDoor;
 		this.opened = false;
 		this.facing = facing;
+		try {
+			this.rightDoorDirection = computeRightDoorDirection(facing);
+		} catch (InvalidDoorException e) {
+			logger.warning("Invalid door facing direction: " + facing);
+		}
 	}
 
 	public Location getLoc() {
@@ -60,17 +66,12 @@ public class Entrance implements Materializable, Directional {
 			return true;
 		}
 		if (isDoubleDoor) {
-			Block rightDoor;
-			try {
-				rightDoor = loc.getBlock().getRelative(computeRightDoorDirection(facing));
-				if (b.equals(rightDoor)) {
-					return true;
-				}
-				if (b.equals(rightDoor.getRelative(BlockFace.UP))) {
-					return true;
-				}
-			} catch (InvalidDoorException e) {
-				logger.warning("Invalid door facing direction: " + facing);
+		Block rightDoor = loc.getBlock().getRelative(this.rightDoorDirection);
+			if (b.equals(rightDoor)) {
+				return true;
+			}
+			if (b.equals(rightDoor.getRelative(BlockFace.UP))) {
+				return true;
 			}
 		}
 		return false;
@@ -78,16 +79,11 @@ public class Entrance implements Materializable, Directional {
 
 	@Override
 	public void materialize(World w) {
-		Block rightDoor;
+		Block rightDoor = loc.getBlock().getRelative(this.rightDoorDirection);
 		generateDoor(w, loc.getBlockX(), loc.getBlockY(), loc.getBlockZ(), facing, false);
 		if (isDoubleDoor) {
-			try {
-				rightDoor = loc.getBlock().getRelative(computeRightDoorDirection(facing));
-				generateDoor(w, rightDoor.getX(), rightDoor.getY(),
-						rightDoor.getZ(), facing, true);
-			} catch (InvalidDoorException e) {
-				logger.warning("Invalid door facing direction: " + facing);
-			}
+			generateDoor(w, rightDoor.getX(), rightDoor.getY(),
+					rightDoor.getZ(), facing, true);
 		}
 	}
 
@@ -126,6 +122,10 @@ public class Entrance implements Materializable, Directional {
 		default:
 			throw new InvalidDoorException(doorFace);
 		}
+	}
+	
+	public BlockFace getRightDoorDirection() {
+		return this.rightDoorDirection;
 	}
 
 	// TODO: Extract this class
