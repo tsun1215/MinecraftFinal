@@ -53,7 +53,7 @@ public class Entrance implements Materializable, Directional {
 	}
 
 	public boolean includesBlock(Block b) {
-		if (b.equals(loc)) {
+		if (b.equals(loc.getBlock())) {
 			return true;
 		}
 		if (b.equals(loc.getBlock().getRelative(BlockFace.UP))) {

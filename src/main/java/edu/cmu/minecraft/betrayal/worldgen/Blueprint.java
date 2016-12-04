@@ -22,11 +22,6 @@ public class Blueprint implements Materializable {
 		doors = new ArrayList<Entrance>();
 		wallsByDir = new HashMap<BlockFace, List<Wall>>();
 		furnitures = new ArrayList<Furniture>();
-
-		wallsByDir.put(BlockFace.EAST, new ArrayList<Wall>());
-		wallsByDir.put(BlockFace.NORTH, new ArrayList<Wall>());
-		wallsByDir.put(BlockFace.SOUTH, new ArrayList<Wall>());
-		wallsByDir.put(BlockFace.WEST, new ArrayList<Wall>());
 	}
 
 	public ArrayList<Entrance> getDoors() {
@@ -38,6 +33,7 @@ public class Blueprint implements Materializable {
 	}
 
 	public void addWall(Wall w) {
+		wallsByDir.putIfAbsent(w.getFacing().getOppositeFace(), new ArrayList<>());
 		wallsByDir.get(w.getFacing().getOppositeFace()).add(w);
 	}
 
@@ -75,6 +71,16 @@ public class Blueprint implements Materializable {
 	 */
 	public List<Wall> getWestWalls() {
 		return wallsByDir.getOrDefault(BlockFace.WEST, new ArrayList<>());
+	}
+	
+	public List<Wall> getWallsByDir(BlockFace dir) {
+		switch(dir) {
+		case NORTH: return this.getNorthWalls();
+		case SOUTH: return this.getSouthWalls();
+		case EAST: return this.getEastWalls();
+		case WEST: return this.getWestWalls();
+		default: return new ArrayList<>();
+		}
 	}
 
 	public Entrance getDoorByBlock(Block block) {

@@ -3,6 +3,8 @@ package edu.cmu.minecraft.betrayal.worldgen;
 import java.util.HashMap;
 
 import org.bukkit.Chunk;
+import org.bukkit.World;
+import org.bukkit.block.BlockFace;
 
 public class RoomManager {
 
@@ -26,5 +28,13 @@ public class RoomManager {
 
 	public Blueprint getBlueprint(Chunk c) {
 		return rooms.get(c);
+	}
+	
+	public Blueprint getBlueprintRelative(Chunk c, BlockFace dir) {
+		int cX = c.getX() + dir.getModX();
+		int cZ = c.getZ() + dir.getModZ();
+		World world = c.getWorld();
+		
+		return rooms.get(world.getChunkAt(cX, cZ));
 	}
 }
