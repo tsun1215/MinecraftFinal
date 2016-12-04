@@ -66,6 +66,13 @@ public class StartHousePopulator extends BlockPopulator {
 				new Location(world, cX + CHUNK_WIDTH - 1, highest + CEILING_HEIGHT, cZ + CHUNK_HEIGHT - 1), 
 				BlockFace.WEST));
 
+		bp.addWall(
+				new Wall(Material.BRICK,
+						new Location(world, cX, highest + CEILING_HEIGHT, cZ),
+						new Location(world, cX + CHUNK_WIDTH - 1,
+								highest + CEILING_HEIGHT, cZ + CHUNK_HEIGHT - 1),
+						BlockFace.DOWN));
+
 		/* Doors */
 		bp.addDoor(new Entrance(plugin, new Location(world, cX + 7, highest, cZ),
 				Material.DARK_OAK_DOOR, BlockFace.NORTH, true));

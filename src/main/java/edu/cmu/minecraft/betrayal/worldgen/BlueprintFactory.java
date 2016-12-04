@@ -84,6 +84,12 @@ public class BlueprintFactory {
 								Material.DARK_OAK_DOOR, dir, true));
 					}
 				});
+		bp.addWall(
+				new Wall(Material.BRICK,
+						new Location(world, cX, floorY + CEILING_HEIGHT, cZ),
+						new Location(world, cX + CHUNK_WIDTH - 1,
+								floorY + CEILING_HEIGHT, cZ + CHUNK_HEIGHT - 1),
+						BlockFace.DOWN));
 
 		return bp;
 	}
