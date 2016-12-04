@@ -33,7 +33,6 @@ public class TorchPopulator implements FurniturePopulator {
 			int torchY = (5 * ((highY - lowY) / 6)) + lowY;
 			int minZ = Math.min(wall.getLowCorner().getBlockZ(), wall.getHighCorner().getBlockZ());
 			int maxZ = Math.max(wall.getLowCorner().getBlockZ(), wall.getHighCorner().getBlockZ());
-			plugin.getLogger().info("min = " + minZ + "; max = " + maxZ + "; y = " + torchY);
 			blueprint.addFurniture(new WallTorch(wall.getLowCorner().getBlockX()-1, torchY, minZ+1, BlockFace.WEST));
 			blueprint.addFurniture(new WallTorch(wall.getLowCorner().getBlockX()-1, torchY, maxZ-1, BlockFace.WEST));
 

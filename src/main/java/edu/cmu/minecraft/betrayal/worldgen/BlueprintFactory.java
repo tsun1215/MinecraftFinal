@@ -25,6 +25,7 @@ public class BlueprintFactory {
 		Blueprint bp = new Blueprint();
 		wallPopulator.populate(bp, chunk);
 		TorchPopulator.getInstance(plugin).populate(bp);
+		TVRoomPopulator.getInstance(plugin).populate(bp);
 		return bp;
 	}
 }
