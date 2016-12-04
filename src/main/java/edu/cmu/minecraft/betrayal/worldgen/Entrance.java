@@ -139,8 +139,21 @@ public class Entrance implements Materializable, Directional {
 
 	@Override
 	public boolean contains(Location l) {
-		// TODO: Change to be a straight line in front of the door
-		return l.equals(this.loc);
+		// Checks in straight line from door
+		switch (this.getFacing()) {
+		case NORTH:
+		case SOUTH:
+			return l.getX() == this.getLoc().getX()
+					&& (l.getY() > this.getLoc().getY()
+							&& l.getY() < this.getLoc().getY() + 1);
+		case EAST:
+		case WEST:
+			return l.getZ() == this.getLoc().getZ()
+					&& (l.getY() > this.getLoc().getY()
+							&& l.getY() < this.getLoc().getY() + 1);
+		default:
+			return l.equals(this.loc);
+		}
 	}
 
 	@Override
