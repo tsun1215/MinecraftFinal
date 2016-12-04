@@ -42,36 +42,8 @@ public class StartHousePopulator extends BlockPopulator {
 				}
 			}
 		}
-
-		Blueprint bp = new Blueprint();
-		// TODO: Clean up this mess
-		// North Wall
-		bp.addWall(new Wall(Material.BRICK, 
-				new Location(world, cX, highest, cZ),
-				new Location(world, cX + CHUNK_WIDTH - 1, highest + CEILING_HEIGHT, cZ),
-				BlockFace.SOUTH));
-		// South Wall
-		bp.addWall(new Wall(Material.BRICK, 
-				new Location(world, cX, highest,cZ + CHUNK_HEIGHT - 1), 
-				new Location(world, cX + CHUNK_WIDTH - 1, highest + CEILING_HEIGHT, cZ + CHUNK_HEIGHT - 1), 
-				BlockFace.NORTH));
-		// West Wall
-		bp.addWall(new Wall(Material.BRICK, 
-				new Location(world, cX, highest, cZ), 
-				new Location(world, cX, highest + CEILING_HEIGHT, cZ + CHUNK_HEIGHT - 1),
-				BlockFace.EAST));
-		// East Wall
-		bp.addWall(new Wall(Material.BRICK, 
-				new Location(world, cX + CHUNK_WIDTH - 1, highest, cZ), 
-				new Location(world, cX + CHUNK_WIDTH - 1, highest + CEILING_HEIGHT, cZ + CHUNK_HEIGHT - 1), 
-				BlockFace.WEST));
-
-		bp.addWall(
-				new Wall(Material.BRICK,
-						new Location(world, cX, highest + CEILING_HEIGHT, cZ),
-						new Location(world, cX + CHUNK_WIDTH - 1,
-								highest + CEILING_HEIGHT, cZ + CHUNK_HEIGHT - 1),
-						BlockFace.DOWN));
+		
+		Blueprint bp = BlueprintFactory.getInstance(plugin).getBlueprint(chunk, null);
 
 		/* Doors */
 		bp.addDoor(new Entrance(plugin, new Location(world, cX + 7, highest, cZ),
