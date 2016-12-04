@@ -33,7 +33,8 @@ public class Blueprint implements Materializable {
 	}
 
 	public void addWall(Wall w) {
-		wallsByDir.putIfAbsent(w.getFacing().getOppositeFace(), new ArrayList<>());
+		wallsByDir.putIfAbsent(w.getFacing().getOppositeFace(),
+				new ArrayList<>());
 		wallsByDir.get(w.getFacing().getOppositeFace()).add(w);
 	}
 
@@ -72,14 +73,30 @@ public class Blueprint implements Materializable {
 	public List<Wall> getWestWalls() {
 		return wallsByDir.getOrDefault(BlockFace.WEST, new ArrayList<>());
 	}
-	
+
+	/**
+	 * Gets a list of ceiling "walls"
+	 * 
+	 * @return List of ceiling walls
+	 */
+	public List<Wall> getCeiling() {
+		return wallsByDir.getOrDefault(BlockFace.UP, new ArrayList<>());
+	}
+
 	public List<Wall> getWallsByDir(BlockFace dir) {
-		switch(dir) {
-		case NORTH: return this.getNorthWalls();
-		case SOUTH: return this.getSouthWalls();
-		case EAST: return this.getEastWalls();
-		case WEST: return this.getWestWalls();
-		default: return new ArrayList<>();
+		switch (dir) {
+		case NORTH:
+			return this.getNorthWalls();
+		case SOUTH:
+			return this.getSouthWalls();
+		case EAST:
+			return this.getEastWalls();
+		case WEST:
+			return this.getWestWalls();
+		case UP:
+			return this.getCeiling();
+		default:
+			return new ArrayList<>();
 		}
 	}
 
