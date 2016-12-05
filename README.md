@@ -8,4 +8,7 @@ gradle eclipse
 ```
 
 ## Compiling jar
-TBA
+```bash
+gradle jar
+cp build/libs/minecraft-final.jar <YOUR_SERVER>/plugins/BetrayalPlugin.jar
+```

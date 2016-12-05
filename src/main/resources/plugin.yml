@@ -1,6 +1,6 @@
 name: BetrayalPlugin
 main: edu.cmu.minecraft.betrayal.BetrayalPlugin
-version: 0.0.1
+version: 1.0.0
 load: STARTUP
 commands:
   enter:
