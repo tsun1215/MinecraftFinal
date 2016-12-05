@@ -55,14 +55,14 @@ public class StartHousePopulator extends BlockPopulator {
 		bp.addDoor(new Entrance(plugin, new Location(world, cX + 7, highest, cZ + CHUNK_HEIGHT - 1),
 				Material.DARK_OAK_DOOR, BlockFace.SOUTH, true));
 
-		bp.addFurniture(new Table(cX+2, highest-1, cZ+1, 3, 3));
-		// bp.addFurniture(new EndTable(cX+10, highest-1, cZ+10));
-		bp.addFurniture(new Sofa(cX+6, highest-1, cZ+6, 2, BlockFace.EAST));
-		bp.addFurniture(new Sofa(cX+10, highest-1, cZ+10, 2, BlockFace.WEST));
-		bp.addFurniture(new Television(cX+12, highest-1, cZ+12, 2, 2, BlockFace.EAST));
-		bp.addFurniture(new WallTorch(cX+1, highest+5, cZ+1, BlockFace.EAST));
-		bp.addFurniture(new Trunk(cX+1, highest+1, cZ+1, BlockFace.EAST));
-		bp.addFurniture(new Trunk(cX+2, highest+1, cZ+1, BlockFace.EAST));
+//		bp.addFurniture(new Table(cX+2, highest-1, cZ+1, 3, 3));
+//		// bp.addFurniture(new EndTable(cX+10, highest-1, cZ+10));
+//		bp.addFurniture(new Sofa(cX+6, highest-1, cZ+6, 2, BlockFace.EAST));
+//		bp.addFurniture(new Sofa(cX+10, highest-1, cZ+10, 2, BlockFace.WEST));
+//		bp.addFurniture(new Television(cX+12, highest-1, cZ+12, 2, 2, BlockFace.EAST));
+//		bp.addFurniture(new WallTorch(cX+1, highest+5, cZ+1, BlockFace.EAST));
+//		bp.addFurniture(new Trunk(cX+1, highest+1, cZ+1, BlockFace.EAST));
+//		bp.addFurniture(new Trunk(cX+2, highest+1, cZ+1, BlockFace.EAST));
 		RoomManager.getInstance().addBlueprint(chunk, bp);
 		bp.materialize(world);
 	}

@@ -1,5 +1,7 @@
 package edu.cmu.minecraft.betrayal.worldgen;
 
+import java.util.Random;
+
 import org.bukkit.Chunk;
 import org.bukkit.plugin.Plugin;
 
@@ -25,7 +27,15 @@ public class BlueprintFactory {
 		Blueprint bp = new Blueprint();
 		wallPopulator.populate(bp, chunk);
 		TorchPopulator.getInstance(plugin).populate(bp);
-		TVRoomPopulator.getInstance(plugin).populate(bp);
+		Random randInt = new Random();
+		int val = randInt.nextInt();
+		if (val % 3 == 0) {
+			LibraryPopulator.getInstance(plugin).populate(bp);
+		} else if (val % 3 == 1) {
+			TVRoomPopulator.getInstance(plugin).populate(bp);
+		} else {
+			DiningRoomPopulator.getInstance(plugin).populate(bp);
+		}
 		return bp;
 	}
 }

@@ -2,26 +2,24 @@ package edu.cmu.minecraft.betrayal.worldgen;
 
 import java.util.logging.Logger;
 
-import org.bukkit.block.BlockFace;
 import org.bukkit.plugin.Plugin;
 
-import edu.cmu.minecraft.betrayal.worldgen.furniture.Sofa;
-import edu.cmu.minecraft.betrayal.worldgen.furniture.Television;
+import edu.cmu.minecraft.betrayal.worldgen.furniture.Shelf;
 
-public class TVRoomPopulator implements FurniturePopulator {
+public class LibraryPopulator implements FurniturePopulator {
 
-	private static TVRoomPopulator self = null;
+	private static LibraryPopulator self = null;
 	private Plugin plugin;
 	private Logger logger;
 	
-	protected TVRoomPopulator(Plugin p) {
+	protected LibraryPopulator(Plugin p) {
 		this.plugin = p;
 		this.logger = plugin.getLogger();
 	}
 	
-	public static TVRoomPopulator getInstance(Plugin p) {
+	public static LibraryPopulator getInstance(Plugin p) {
 		if (self == null) {
-			self = new TVRoomPopulator(p);
+			self = new LibraryPopulator(p);
 		}
 		return self;
 	}
@@ -34,12 +32,12 @@ public class TVRoomPopulator implements FurniturePopulator {
 		} else if (blueprint.getEastWalls().size() > 0){
 			side = blueprint.getEastWalls().get(0);
 		} else {
-			logger.warning("Couldn't make a TV room - no side walls");
+			logger.warning("Couldn't make a Library - no side walls");
 			return;
 		}
 		int baseY = side.getLowCorner().getBlockY()-1;
 		int ceilY = side.getHighCorner().getBlockY();
-		int height = ceilY - baseY - 1;
+		int height = ceilY - baseY - 4;
 		int maxZ = Math.max(side.getLowCorner().getBlockZ(), side.getHighCorner().getBlockZ());
 		int minZ = Math.min(side.getLowCorner().getBlockZ(), side.getHighCorner().getBlockZ());
 		int width = maxZ - minZ - 1;
@@ -54,9 +52,10 @@ public class TVRoomPopulator implements FurniturePopulator {
 		} else {
 			minX = Math.min(side.getLowCorner().getBlockX(), side.getHighCorner().getBlockX());
 		}
-		blueprint.addFurniture(new Television(minX+3, baseY, minZ+3, width-6, height-2, BlockFace.SOUTH));
-		for (int z = minZ + 7; z <= maxZ-2; z += 3) {
-			blueprint.addFurniture(new Sofa(minX+5, baseY, z, width-9, BlockFace.WEST));
+		for (int z = minZ+3; z <= maxZ-2; z+= 3) {
+			blueprint.addFurniture(new Shelf(minX+2, baseY, z, height, width/3-1, false));
+			blueprint.addFurniture(new Shelf(minX+9, baseY, z, height, width/3-1, false));
+
 		}
 	}
 
