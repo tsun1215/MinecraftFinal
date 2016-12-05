@@ -38,7 +38,6 @@ public class DiningRoomPopulator implements FurniturePopulator {
 			return;
 		}
 		int baseY = side.getLowCorner().getBlockY()-1;
-		int ceilY = side.getHighCorner().getBlockY();
 		int maxZ = Math.max(side.getLowCorner().getBlockZ(), side.getHighCorner().getBlockZ());
 		int minZ = Math.min(side.getLowCorner().getBlockZ(), side.getHighCorner().getBlockZ());
 		int width = maxZ - minZ - 1;
@@ -55,10 +54,10 @@ public class DiningRoomPopulator implements FurniturePopulator {
 		}
 		int tableWidth = width-8;
 		blueprint.addFurniture(new Table(minX+4, baseY, minZ+4, tableWidth, tableWidth));
-		blueprint.addFurniture(new Trunk(minX+4+(tableWidth/2), baseY+3, minZ+4+(tableWidth/2), BlockFace.EAST));
+		blueprint.addFurniture(new Trunk(minX+4+(tableWidth/2), baseY+3, minZ+2+(tableWidth/2), BlockFace.EAST));
+		blueprint.addFurniture(new Trunk(minX+4+(tableWidth/2), baseY+3, minZ+3+(tableWidth/2), BlockFace.EAST));
 		blueprint.addFurniture(new Trunk(minX+4+(tableWidth/2), baseY+3, minZ+5+(tableWidth/2), BlockFace.EAST));
 		blueprint.addFurniture(new Trunk(minX+4+(tableWidth/2), baseY+3, minZ+6+(tableWidth/2), BlockFace.EAST));
-		blueprint.addFurniture(new Trunk(minX+4+(tableWidth/2), baseY+3, minZ+7+(tableWidth/2), BlockFace.EAST));
 
 
 	}
